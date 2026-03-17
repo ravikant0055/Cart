@@ -1,75 +1,81 @@
-# React + TypeScript + Vite
+## Cart App (Products, Basket, Special Offers)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Shopping cart application that lets users add products to a basket and calculates a bill including:
 
-Currently, two official plugins are available:
+- **Subtotal** (before special offers)
+- **Special offers applied** (each offer’s individual saving)
+- **Final total** (after savings)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Features
 
-## React Compiler
+- **Product list**: add items to basket (disabled/greyed out once in basket)
+- **Basket**: update quantities with +/- or direct input
+- **Offer engine**: computes savings and totals from basket contents
+- **Bill breakdown**:
+  - subtotal
+  - each offer saving line
+  - total savings
+  - final amount
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Special offers
 
-Note: This will impact Vite dev & build performances.
+- **Cheese 2 for 1**: buy one cheese, get the second free (every 2 cheeses → 1 free)
+- **Soup + half price Bread**: for each soup, one bread is half price (limited by bread quantity)
+- **Butter 1/3 off**: a third off every butter
 
-## Expanding the ESLint configuration
+### Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** + **TypeScript**
+- **Tailwind CSS** (UI styling)
+- **Redux Toolkit** + **React-Redux** (state management)
+- **Vitest** + **React Testing Library** (unit tests)
+- **Vite** (build tooling)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Getting started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Install dependencies:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Run dev server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+### Tests
+
+Run tests in watch mode:
+
+```bash
+npm test
+```
+
+Run tests once (CI):
+
+```bash
+npm run test:run
+```
+
+### Project notes
+
+- Core pricing logic lives in Redux selectors: `src/store/cart/selectors.ts`
+- Cart state is managed in: `src/store/cart/cartSlice.ts`
+
+### Linting
+
+```bash
+npm run lint
+```
+
+---
+
+If you’re deploying to Vercel, production builds use `vite.config.ts`. Unit test configuration is isolated in `vitest.config.ts`.

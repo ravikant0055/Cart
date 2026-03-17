@@ -8,14 +8,4 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
-  test: {
-    environment: "jsdom",
-    setupFiles: "./src/test/setup.ts",
-    css: true,
-    pool: "threads",
-    maxWorkers: 1,
-    fileParallelism: false,
-    include: ["src/**/*.test.{ts,tsx}"],
-    exclude: ["**/node_modules/**", "**/dist/**"],
-  },
 })
